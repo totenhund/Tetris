@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Tetris</string>
+    <string name="title_activity_game">GameActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="new_game">NEW GAME</string>
+    <string name="high_score">HIGH SCORE:</string>
+    <string name="tetris">Tetris</string>
+    <string name="reset_score">RESET SCORE</string>
+    <string name="exit">EXIT</string>
+    <string name="current_score">Current score</string>
+</resources>
