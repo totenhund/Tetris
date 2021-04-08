@@ -41,7 +41,7 @@ class AppModel {
         return currentState == Statuses.ACTIVE.name
     }
 
-    fun isGameAwaiting(): Boolean {
+    fun isGameAwaitingStart(): Boolean {
         return currentState == Statuses.AWAITING_START.name
     }
 
