@@ -16,7 +16,7 @@ public class Block  {
     private int frameNumber;
 
     private BlockColor color;
-    private Point position;
+    Point position;
 
     private Block(int shapeIndex, BlockColor blockColor) {
         this.frameNumber = 0;

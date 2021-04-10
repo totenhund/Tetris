@@ -1,5 +1,6 @@
 package totenhund.com.tetris
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,37 +13,45 @@ import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
-    var highScore: TextView? = null
+    private var tvHighScore: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
 
         val btnNewGame = findViewById<Button>(R.id.newGameButton)
         val btnResetScore = findViewById<Button>(R.id.resetScoreButton)
         val btnExit = findViewById<Button>(R.id.exitButton)
+        tvHighScore = findViewById<TextView>(R.id.high_score)
 
-        highScore = findViewById<TextView>(R.id.scoreTextView)
+        btnNewGame.setOnClickListener(this::onBtnNewGameClick)
+        btnResetScore.setOnClickListener(this::onBtnResetScoreClick)
+        btnExit.setOnClickListener(this::onBtnExitClick)
 
-        btnNewGame.setOnClickListener(this::runNewGameClick)
-        btnResetScore.setOnClickListener(this::resetScoreClick)
-        btnExit.setOnClickListener(this::exitGameClick)
+        updateHighScore()
     }
 
-    private fun runNewGameClick(view: View){
+    private fun onBtnNewGameClick(view: View) {
         val intent = Intent(this, GameActivity::class.java)
         startActivity(intent)
     }
 
-    private fun resetScoreClick(view: View){
+    @SuppressLint("SetTextI18n")
+    private fun onBtnResetScoreClick(view: View) {
         val preferences = AppPreferences(this)
         preferences.clearHighScore()
         Snackbar.make(view, "Score successfully reset", Snackbar.LENGTH_SHORT).show()
-        highScore?.text = "High score: ${preferences.getHighScore()}"
+        tvHighScore?.text = "High score: ${preferences.getHighScore()}"
     }
 
-    private fun exitGameClick(view: View){
-        exitProcess(0)
+    @SuppressLint("SetTextI18n")
+    fun updateHighScore() {
+        val preferences = AppPreferences(this)
+        tvHighScore?.text = "High score: ${preferences.getHighScore()}"
     }
 
+    private fun onBtnExitClick(view: View) {
+        System.exit(0)
+    }
 }

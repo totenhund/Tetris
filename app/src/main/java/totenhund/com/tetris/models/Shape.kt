@@ -1,12 +1,11 @@
 package totenhund.com.tetris.models
 
 enum class Shape(val frameCount: Int, val startPosition: Int) {
-
     Tetromino1(1, 1) {
         override fun getFrame(frameNumber: Int): Frame {
             return Frame(2)
-                    .addRow("11")
-                    .addRow("11")
+                .addRow("11")
+                .addRow("11")
         }
     },
 
@@ -14,13 +13,13 @@ enum class Shape(val frameCount: Int, val startPosition: Int) {
         override fun getFrame(frameNumber: Int): Frame {
             return when (frameNumber) {
                 0 -> Frame(3)
-                        .addRow("110")
-                        .addRow("011")
+                    .addRow("110")
+                    .addRow("011")
                 1 -> Frame(2)
-                        .addRow("01")
-                        .addRow("11")
-                        .addRow("10")
-                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number")
+                    .addRow("01")
+                    .addRow("11")
+                    .addRow("10")
+                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number.")
             }
         }
     },
@@ -29,13 +28,13 @@ enum class Shape(val frameCount: Int, val startPosition: Int) {
         override fun getFrame(frameNumber: Int): Frame {
             return when (frameNumber) {
                 0 -> Frame(3)
-                        .addRow("011")
-                        .addRow("110")
+                    .addRow("011")
+                    .addRow("110")
                 1 -> Frame(2)
-                        .addRow("10")
-                        .addRow("11")
-                        .addRow("01")
-                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number")
+                    .addRow("10")
+                    .addRow("11")
+                    .addRow("01")
+                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number.")
             }
         }
     },
@@ -45,11 +44,11 @@ enum class Shape(val frameCount: Int, val startPosition: Int) {
             return when (frameNumber) {
                 0 -> Frame(4).addRow("1111")
                 1 -> Frame(1)
-                        .addRow("1")
-                        .addRow("1")
-                        .addRow("1")
-                        .addRow("1")
-                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number")
+                    .addRow("1")
+                    .addRow("1")
+                    .addRow("1")
+                    .addRow("1")
+                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number.")
             }
         }
     },
@@ -58,51 +57,50 @@ enum class Shape(val frameCount: Int, val startPosition: Int) {
         override fun getFrame(frameNumber: Int): Frame {
             return when (frameNumber) {
                 0 -> Frame(3)
-                        .addRow("010")
-                        .addRow("111")
+                    .addRow("010")
+                    .addRow("111")
                 1 -> Frame(2)
-                        .addRow("10")
-                        .addRow("11")
-                        .addRow("10")
+                    .addRow("10")
+                    .addRow("11")
+                    .addRow("10")
                 2 -> Frame(3)
-                        .addRow("111")
-                        .addRow("010")
+                    .addRow("111")
+                    .addRow("010")
                 3 -> Frame(2)
-                        .addRow("01")
-                        .addRow("11")
-                        .addRow("01")
-                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number")
+                    .addRow("01")
+                    .addRow("11")
+                    .addRow("01")
+                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number.")
             }
         }
     },
 
-    Tetromino6(4, 1){
+    Tetromino6(4, 1) {
         override fun getFrame(frameNumber: Int): Frame {
-            return when(frameNumber){
+            return when (frameNumber) {
                 0 -> Frame(3)
-                        .addRow("100")
-                        .addRow("111")
+                    .addRow("100")
+                    .addRow("111")
                 1 -> Frame(2)
-                        .addRow("11")
-                        .addRow("10")
-                        .addRow("10")
+                    .addRow("11")
+                    .addRow("10")
+                    .addRow("10")
                 2 -> Frame(3)
-                        .addRow("111")
-                        .addRow("001")
+                    .addRow("111")
+                    .addRow("001")
                 3 -> Frame(2)
-                        .addRow("01")
-                        .addRow("01")
-                        .addRow("11")
-                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number")
+                    .addRow("01")
+                    .addRow("01")
+                    .addRow("11")
+                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number.")
             }
         }
-
     },
 
     Tetromino7(4, 1) {
         override fun getFrame(frameNumber: Int): Frame {
             return when (frameNumber) {
-                0 -> Frame(3)
+                0 ->  Frame(3)
                     .addRow("001")
                     .addRow("111")
                 1 -> Frame(2)
@@ -116,11 +114,10 @@ enum class Shape(val frameCount: Int, val startPosition: Int) {
                     .addRow("11")
                     .addRow("01")
                     .addRow("01")
-                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number")
+                else -> throw IllegalArgumentException("$frameNumber is an invalid frame number.")
             }
         }
     };
-
 
     abstract fun getFrame(frameNumber: Int): Frame
 }

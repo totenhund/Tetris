@@ -1,6 +1,7 @@
 package totenhund.com.tetris.models
 
 import android.graphics.Point
+import android.util.Log
 import totenhund.com.tetris.constants.CellConstants
 import totenhund.com.tetris.constants.FieldConstants
 import totenhund.com.tetris.helper.array2dOfByte
@@ -10,6 +11,9 @@ class AppModel {
 
     var score: Int = 0
     private var preferences: AppPreferences? = null
+
+    var currentX: Int = 0
+    var currentY: Int = 0
 
     var currentBlock: Block? = null
     var currentState: String = Statuses.AWAITING_START.name
@@ -49,6 +53,10 @@ class AppModel {
                 }
             }
 
+            currentX = coordinate?.x!!
+            currentY = coordinate?.y!!
+            Log.e("Coord", "$currentX $currentY")
+
             if (!moveValid(coordinate as Point, frameNumber)) {
                 translateBlock(currentBlock?.position as Point, currentBlock?.frameNumber as Int)
 
@@ -85,13 +93,13 @@ class AppModel {
     private fun translateBlock(position: Point, frameNumber: Int) {
         synchronized(field) {
             val shape: Array<ByteArray>? = currentBlock?.getShape(frameNumber)
-
             if (shape != null) {
                 // All cell is correct - add the data:
                 for (i in shape.indices) {
                     for (j in 0 until shape[i].size) {
                         val y = position.y + i
                         val x = position.x + j
+
                         if (CellConstants.EMPTY.value != shape[i][j]) {
                             field[y][x] = shape[i][j]
                         }

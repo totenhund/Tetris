@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 
 class AppPreferences(ctx: Context) {
 
-    val data: SharedPreferences = ctx.getSharedPreferences("APP_PREFERENCES", Context.MODE_PRIVATE)
+    var data: SharedPreferences = ctx.getSharedPreferences("APP_PREFERENCES", Context.MODE_PRIVATE)
 
     fun saveHighScore(highScore: Int) {
         data.edit().putInt("HIGH_SCORE", highScore).apply()

@@ -1,7 +1,9 @@
 package totenhund.com.tetris
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
@@ -19,6 +21,7 @@ class GameActivity : AppCompatActivity() {
     var appPreferences: AppPreferences? = null
     private val appModel: AppModel = AppModel()
 
+    @SuppressLint("ClickableViewAccessibility")
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -59,15 +62,28 @@ class GameActivity : AppCompatActivity() {
         return true
     }
 
-    private fun resolveTouchDirection(view: View, event: MotionEvent): Int {
+    private fun resolveTouchDirection(view: View, event: MotionEvent):
+            Int {
         val x = event.x / view.width
         val y = event.y / view.height
-        val direction: Int
 
-        direction = if (y > x) {
-            if (x > 1 - y) 2 else 0 } else {
-            if (x > 1 - y) 3 else 1
+        var blockX = (view as TetrisView).currentX
+        var blockY = (view as TetrisView).currentY
+
+        Log.e("Testing", "X: $x $blockX")
+        Log.e("Testing", "Y: $y $blockY")
+
+        var direction: Int = 0
+        if(x >= 0.5){
+            direction = 3
+        }else if(x < 0.5){
+            direction = 0
         }
+
+        if(y > x && x > 1 - y){
+            direction = 2
+        }
+
         return direction
     }
 

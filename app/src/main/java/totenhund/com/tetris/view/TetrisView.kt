@@ -8,6 +8,7 @@ import android.graphics.RectF
 import android.os.Handler
 import android.os.Message
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import totenhund.com.tetris.GameActivity
@@ -27,6 +28,11 @@ class TetrisView : View {
     private var cellSize: Dimension = Dimension(0, 0)
     private var frameOffset: Dimension = Dimension(0, 0)
 
+    var currentX: Float = 0.0f
+        get() = field * (FieldConstants.COLUMN_COUNT.value.toFloat() / (0.1f * width))
+    var currentY: Float = 0.0f
+        get() = field * (FieldConstants.ROW_COUNT.value.toFloat() / (0.1f * height))
+
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
@@ -39,6 +45,7 @@ class TetrisView : View {
         this.activity = gameActivity
     }
 
+
     fun setGameCommand(move: AppModel.Motions) {
         if (null != model && (model?.currentState == AppModel.Statuses.ACTIVE.name)) {
             if (AppModel.Motions.DOWN == move) {
@@ -46,6 +53,10 @@ class TetrisView : View {
                 invalidate()
                 return
             }
+
+            currentX = model!!.currentX.toFloat()
+            currentY = model!!.currentY.toFloat()
+
             setGameCommandWithDelay(move)
         }
     }
@@ -76,6 +87,7 @@ class TetrisView : View {
             } else {
                 Block.getColor(cellStatus as Byte)
             }
+
             drawCell(canvas, col, row, color as Int)
         }
     }
@@ -102,6 +114,7 @@ class TetrisView : View {
                     drawCell(canvas, i, j)
                 }
             }
+
         }
     }
 
@@ -134,7 +147,6 @@ class TetrisView : View {
                     if (owner.model!!.isGameOver()) {
                         owner.model?.endGame()
                         Toast.makeText(owner.activity, "Game over", Toast.LENGTH_LONG).show()
-                        //owner.activity!!.endGame()
                     }
                     if (owner.model!!.isGameActive()) {
                         owner.setGameCommandWithDelay(AppModel.Motions.DOWN)
@@ -150,7 +162,7 @@ class TetrisView : View {
     }
 
     companion object {
-        private val DELAY = 500
+        private val DELAY = 400
         private val BLOCK_OFFSET = 2
         private val FRAME_OFFSET_BASE = 10
     }
