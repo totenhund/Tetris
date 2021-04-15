@@ -69,19 +69,12 @@ class GameActivity : AppCompatActivity() {
 
         var blockX = (view as TetrisView).currentX
         var blockY = (view as TetrisView).currentY
-
-        Log.e("Testing", "X: $x $blockX")
-        Log.e("Testing", "Y: $y $blockY")
-
-        var direction: Int = 0
-        if(x >= 0.5){
-            direction = 3
-        }else if(x < 0.5){
-            direction = 0
+        val direction: Int
+        direction = if (y > x) {
+            if (x > 1 - y) 2 else 0
         }
-
-        if(y > x && x > 1 - y){
-            direction = 2
+        else {
+            if (x > 1 - y) 3 else 1
         }
 
         return direction

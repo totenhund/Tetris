@@ -55,7 +55,6 @@ class AppModel {
 
             currentX = coordinate?.x!!
             currentY = coordinate?.y!!
-            Log.e("Coord", "$currentX $currentY")
 
             if (!moveValid(coordinate as Point, frameNumber)) {
                 translateBlock(currentBlock?.position as Point, currentBlock?.frameNumber as Int)
@@ -67,6 +66,9 @@ class AppModel {
                     generateNextBlock()
 
                     if (!blockAdditionPossible()) {
+
+                        Log.e("over", "over")
+
                         currentState = Statuses.OVER.name
                         currentBlock = null
                         resetField(false)
@@ -116,6 +118,7 @@ class AppModel {
     }
 
     private fun validTranslation(position: Point, shape: Array<ByteArray>): Boolean {
+
         return if (position.y < 0 || position.x < 0) {
             false
         } else if (position.y + shape.size > FieldConstants.ROW_COUNT.value) {
@@ -135,6 +138,7 @@ class AppModel {
                     }
                 }
             }
+
             true
         }
     }
@@ -147,6 +151,7 @@ class AppModel {
         // Check the validity of new block:
         if (!moveValid(currentBlock?.position as Point, currentBlock?.frameNumber)) {
             // GAME IS OVER!
+
             return false
         }
         return true
@@ -223,7 +228,7 @@ class AppModel {
 
     fun endGame() {
         score = 0
-        currentState = AppModel.Statuses.OVER.name
+        currentState = Statuses.OVER.name
     }
 
     private fun resetModel() {
@@ -234,8 +239,8 @@ class AppModel {
 
     private fun boostScore() {
         score += 10
-        if (score > preferences?.getHighScore() as Int)
-            preferences?.saveHighScore(score)
+//        if (score > preferences?.getHighScore() as Int)
+//            preferences?.saveHighScore(score)
     }
 
 
